@@ -1,0 +1,28 @@
+{
+  "name": "rss-parser",
+  "version": "1.0.0",
+  "description": "POC rss-parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:team_gsw/rss-parser.git"
+  },
+  "author": "Fábio H. G. Barbosa",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/team_gsw/rss-parser#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-load": "^1.1.15",
+    "feedparser": "^1.1.3",
+    "iconv": "^2.1.10",
+    "lodash": "^4.13.1",
+    "node-schedule": "^1.1.1",
+    "request": "^2.63.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}

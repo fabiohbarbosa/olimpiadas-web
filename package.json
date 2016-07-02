@@ -2,8 +2,10 @@
   "name": "rss-parser",
   "version": "1.0.0",
   "description": "POC rss-parser",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": " npm run docker && ./node_modules/nodemon/bin/nodemon.js server.js",
+    "docker": "docker-compose up -d",
     "test": "mocha tests/**/*.js"
   },
   "repository": {

@@ -26,7 +26,7 @@ exports.rss = function() {
         return
       }
       // TODO save URL
-      // console.log(url);
+      console.log(url);
     });
   });
 };
@@ -67,7 +67,7 @@ exports.html = function() {
         body: body,
         link: link
       }
-      console.log(news);
+      // console.log(news);
     });
   });
 };

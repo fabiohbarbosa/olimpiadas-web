@@ -6,7 +6,7 @@ exports.start = function() {
 };
 
 function globoScheduling() {
-  schedule.scheduleJob('*/2 * * * * *', function() {
+  schedule.scheduleJob('*/5 * * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();
   });

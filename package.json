@@ -1,7 +1,7 @@
 {
-  "name": "rss-parser",
+  "name": "olimpiadas-web",
   "version": "1.0.0",
-  "description": "POC rss-parser",
+  "description": "Olimpiadas Web",
   "main": "server.js",
   "scripts": {
     "start": " npm run docker && ./node_modules/nodemon/bin/nodemon.js server.js",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:team_gsw/rss-parser.git"
+    "url": "git@github.com:fabiohbarbosa/olimpiadas-web.git"
   },
   "author": "Fábio H. G. Barbosa",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/team_gsw/rss-parser#readme",
+  "homepage": "https://github.com/fabiohbarbosa/olimpiadas-web",
   "dependencies": {
     "express": "^4.13.3",
     "express-load": "^1.1.15",
@@ -25,6 +25,6 @@
     "request": "^2.63.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   }
 }

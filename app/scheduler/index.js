@@ -1,7 +1,7 @@
 import {log} from '../utils/';
 
 import schedule from 'node-schedule';
-import globoAdapter from '../adapters/globo-adapter';
+import {globoAdapter} from '../adapters';
 
 exports.start = () => {
   log.debug('Scheduling start');
@@ -10,8 +10,8 @@ exports.start = () => {
 
 function globoScheduling() {
   log.debug('Scheduling globo adapter');
-  schedule.scheduleJob('*/5 * * * * *', function() {
+  schedule.scheduleJob('*/2 * * * * *', function() {
     globoAdapter.rss();
-    globoAdapter.html();
+    // globoAdapter.html();
   });
 }

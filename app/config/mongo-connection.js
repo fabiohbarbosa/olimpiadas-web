@@ -1,26 +1,30 @@
-var single_connection_mongo = false;
+import mongoose from 'mongoose';
+import {
+  log,
+  properties,
+  nodeEnv
+} from '../utils';
 
-module.exports = function () {
-    var config = require('../../environment/config');
-    var mongoose = require('mongoose');
-    var env_url = config.db.mongo.env_url;
-    var logger = require('../logger')(__filename);
-    var environment = require('../../environment');
+let single_connection_mongo = false;
 
-    if (!environment.isEnvironmentUnitTest()) {
-        if (!single_connection_mongo) {
-            single_connection_mongo = true;
-            var mongoUrl = env_url[environment.getNodeEnv()];
-            mongoose.connect(mongoUrl, function (err) {
-                if (err) {
-                    single_connection_mongo = false;
-                    console.error('ERROR connecting to: ' + mongoUrl + '. ' + err);
-                    process.exit();
-                } else {
-                    console.log('Succeeded connected to: ' + mongoUrl);
-                }
-            });
-        }
+module.exports = () => {
+  if (single_connection_mongo) {
+    log.debug('Mongo already connect');
+    return;
+  }
+
+  single_connection_mongo = true;
+  let mongoUrl = properties.mongo[nodeEnv];
+
+  mongoose.connect(mongoUrl, (err) => {
+    if (!err) {
+      log.info('Succeeded connected to: ' + mongoUrl);
+      return;
     }
-    return mongoose;
+    single_connection_mongo = false;
+    log.error('Error connecting to: ' + mongoUrl + '. ' + err);
+    process.exit();
+  });
+
+  return mongoose;
 };

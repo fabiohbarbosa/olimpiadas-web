@@ -1,6 +1,7 @@
 import express from 'express';
 import load from 'express-load';
-import scheduler from './modules/scheduler';
+
+import scheduler from './scheduler';
 import {log} from './utils';
 
 let app = express();

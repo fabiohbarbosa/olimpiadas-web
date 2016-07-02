@@ -1,11 +1,15 @@
-var schedule = require('node-schedule');
-var globoAdapter = require('../adapters/globo-adapter');
+import {log} from '../utils/';
 
-exports.start = function() {
+import schedule from 'node-schedule';
+import globoAdapter from '../adapters/globo-adapter';
+
+exports.start = () => {
+  log.debug('Scheduling start');
   globoScheduling();
 };
 
 function globoScheduling() {
+  log.debug('Scheduling globo adapter');
   schedule.scheduleJob('*/5 * * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();

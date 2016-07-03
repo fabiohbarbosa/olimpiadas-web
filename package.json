@@ -4,8 +4,10 @@
   "description": "Olimpiadas Web",
   "main": "server.js",
   "scripts": {
+    "clear": "rm -rf build && mkdir build",
     "docker": "docker-compose up -d",
-    "start": " npm run docker && ./node_modules/.bin/nodemon --exec babel-node app/server.js",
+    "start": "npm run clear && cp ./app/properties.yaml ./build && ./node_modules/.bin/./babel -d ./build ./app/ && node ./build/server.js",
+    "start-dev": " npm run docker && ./node_modules/.bin/nodemon --exec babel-node app/server.js",
     "lint": "eslint source/ --quiet",
     "test": "mocha  tests/**/*.js",
     "validate": "npm run lint; npm run test && npm outdated --depth 0"

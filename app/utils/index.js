@@ -57,10 +57,14 @@ function nodeEnv() {
 }
 
 function objectToJson(msg) {
-  if (msg instanceof Object) {
-    msg = JSON.stringify(msg);
+  if (!(msg instanceof Object)) {
+    return msg;
   }
-  return msg;
+  try {
+    return JSON.parse(msg);
+  } catch (e) {
+    return msg;
+  }
 }
 
 exports.properties = properties;

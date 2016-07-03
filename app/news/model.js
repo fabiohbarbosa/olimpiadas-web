@@ -7,7 +7,24 @@ let NewsSchema = new Schema({
   _id: String,
   title: String,
   body: String,
-  type: String
+  img: String,
+  type: String,
+  date: { type: Date, default: new Date() }
+});
+
+
+NewsSchema.pre('save', function(callback) {
+  try {
+    this.title = replaceRegexChars(this.title);
+    this.body = replaceRegexChars(this.body);
+    callback();
+  } catch (err) {
+    callback(err);
+  }
+
+  function replaceRegexChars(str) {
+    return str.replace(/\r?\n|\r/g, "");
+  }
 });
 
 module.exports = mongoose.model('News', NewsSchema);

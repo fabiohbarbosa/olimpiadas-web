@@ -31,16 +31,18 @@ exports.rss = () => {
       let body = adapterBody(post.description);
       if (!body) return;
 
+      let img = adapterImg(post.description);
+      if (!img) return;
+
       let news = new News();
       news._id = link;
       news.title = title;
       news.body = body;
+      news.img = img;
       news.type = 'RSS';
 
       saveNews(news, 'RSS');
     });
-
-    log.info('Finish RSS parse');
   });
 
   function adapterBody(description) {
@@ -55,18 +57,29 @@ exports.rss = () => {
     return body;
   }
 
+  function adapterImg(description) {
+    if (!description) return;
+
+    let $ = cheerio.load('<html>'+description+'</html>');
+    let img = $('a').children().attr('src');
+
+    if (!img) {
+      img = properties.globo.defaultImg;
+      log.debug('Image not found, save default');
+    }
+    return img;
+  }
+
 };
 
 exports.html = () => {
   log.info('Starting HTML parse');
   for (let i = 1; i <= properties.globo.htmlPages; i++) {
-    parseHtml(properties.globo.html + '?page='+i);
+    parseHtml(properties.globo.html + '&page='+i);
   }
 
-  log.info('Finish HTML parse');
-
   function parseHtml(url) {
-    log.info('Parsing '+url);
+    log.debug('Parsing '+url);
     let html = new ParseHTML(url);
     html.start((posts) => {
       if (!posts) return;
@@ -74,34 +87,38 @@ exports.html = () => {
       let $ = cheerio.load(posts);
 
       $('.resultado_da_busca').contents().each((index, element) => {
+
+        let materiaPadrao = $(element).children('.specie-content')
+          .children('.busca-materia-padrao');
+
         // title
-        let title = $(element).children('.specie-content')
-          .children('.busca-materia-padrao')
-          .children('.busca-titulo').attr('title');
+        let title = materiaPadrao.children('.busca-titulo')
+          .attr('title');
         if (!title) return;
 
         // body
-        let body = $(element).children('.specie-content')
-          .children('.busca-materia-padrao')
-          .children().last()
+        let body = materiaPadrao.children().last()
           .children('.busca-highlight').text();
         if (!body) return;
         body = body.trim().replace("\n", "");
 
         //link
-        let link = $(element).children('.specie-content')
-          .children('.busca-materia-padrao')
-          .children().last()
+        let link = materiaPadrao.children().last()
           .children('.busca-link-url').attr('href');
         if (!link) return;
 
         link = adapterLink(link);
-        if (link.indexOf('olimpiadas') <= 0) return;
+
+        // img
+        let img = materiaPadrao.children().last()
+          .children('.busca-link-url').children().attr('src');
+        if (!img) return;
 
         let news = new News();
         news._id = link;
         news.title = title;
         news.body = body;
+        news.img = img;
         news.type = 'HTML';
 
         saveNews(news, 'HTML');
@@ -127,6 +144,10 @@ function saveNews(news, type) {
   news.save(function(err) {
     if (err && err.code === 11000) {
       log.debug('News ' +news._id+ ' already exists');
+      return;
+    }
+    if (err) {
+      log.error(err);
       return;
     }
     log.info('Save '+ type + ' '+ news._id);

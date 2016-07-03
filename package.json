@@ -7,8 +7,8 @@
     "clear": "rm -rf build && mkdir build",
     "docker": "docker-compose up -d",
     "start": "npm run clear && cp ./app/properties.yaml ./build && ./node_modules/.bin/./babel -d ./build ./app/ && node ./build/server.js",
-    "start-dev": " npm run docker && ./node_modules/.bin/nodemon --exec babel-node app/server.js",
-    "lint": "eslint source/ --quiet",
+    "start-dev": " npm run docker && ./node_modules/.bin/nodemon -e js,yaml --exec babel-node app/server.js",
+    "lint": "./node_modules/.bin/eslint ./app/ --quiet",
     "test": "mocha  tests/**/*.js",
     "validate": "npm run lint; npm run test && npm outdated --depth 0"
   },
@@ -35,6 +35,7 @@
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-2": "^6.11.0",
+    "eslint": "^3.0.0",
     "nodemon": "^1.9.2"
   },
   "engines": {

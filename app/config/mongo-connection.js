@@ -5,26 +5,35 @@ import {
   nodeEnv
 } from '../utils';
 
-let single_connection_mongo = false;
+let singleConnection = false;
 
 module.exports = () => {
-  if (single_connection_mongo) {
+  if (singleConnection) {
     log.debug('Mongo already connect');
     return;
   }
 
-  single_connection_mongo = true;
-  let mongoUrl = properties.mongo[nodeEnv];
+  singleConnection = true;
+  let mongoUrl = properties.mongo[nodeEnv].url;
 
-  mongoose.connect(mongoUrl, (err) => {
+  let con = mongoose.connect(mongoUrl, (err) => {
     if (!err) {
       log.info('Succeeded connected to: ' + mongoUrl);
       return;
     }
-    single_connection_mongo = false;
+    singleConnection = false;
     log.error('Error connecting to: ' + mongoUrl + '. ' + err);
     process.exit();
   });
+
+  // drop database
+  if (properties.mongo[nodeEnv].drop) {
+    mongoose.connection.on('open', () => {
+      con.connection.db.dropDatabase(() => {
+        log.info('Database dropped');
+      });
+    });
+  }
 
   return mongoose;
 };

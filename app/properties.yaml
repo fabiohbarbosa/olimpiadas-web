@@ -1,10 +1,15 @@
 log:
-  level: DEBUG
+  level: INFO
 
 mongo:
-  local: 'mongodb://localhost/weupsh'
-  staging: 'mongodb://localhost/weupsh'
+  local:
+    url: mongodb://localhost/olimpiadas
+    drop: false
+  staging:
+    url: mongodb://localhost/olimpiadas
+    drop: false
 
 globo:
   rss: http://globoesporte.globo.com/servico/semantica/editorias/plantao/feed.rss
   html: http://globoesporte.globo.com/busca/?q=olimpiadas&st=globoesporte
+  htmlPages: 10

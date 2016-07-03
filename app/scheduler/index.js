@@ -10,8 +10,13 @@ exports.start = () => {
 
 function globoScheduling() {
   log.debug('Scheduling globo adapter');
-  schedule.scheduleJob('*/2 * * * * *', function() {
+  // 10 minutos
+  // */10 * * * *
+
+  // 10 segundos
+  // */10 * * * * *
+  schedule.scheduleJob('*/10 * * * *', function() {
     globoAdapter.rss();
-    // globoAdapter.html();
+    globoAdapter.html();
   });
 }

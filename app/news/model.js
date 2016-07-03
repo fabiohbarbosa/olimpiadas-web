@@ -9,7 +9,10 @@ let NewsSchema = new Schema({
   body: String,
   img: String,
   type: String,
-  date: { type: Date, default: new Date() }
+  date: {
+    type: Date,
+    default: new Date()
+  }
 });
 
 
@@ -17,9 +20,9 @@ NewsSchema.pre('save', function(callback) {
   try {
     this.title = replaceRegexChars(this.title);
     this.body = replaceRegexChars(this.body);
-    callback();
+    return callback();
   } catch (err) {
-    callback(err);
+    return callback(err);
   }
 
   function replaceRegexChars(str) {

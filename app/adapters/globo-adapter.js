@@ -60,7 +60,7 @@ exports.rss = () => {
   function adapterImg(description) {
     if (!description) return;
 
-    let $ = cheerio.load('<html>'+description+'</html>');
+    let $ = cheerio.load('<html>' + description + '</html>');
     let img = $('a').children().attr('src');
 
     if (!img) {
@@ -75,11 +75,11 @@ exports.rss = () => {
 exports.html = () => {
   log.info('Starting HTML parse');
   for (let i = 1; i <= properties.globo.htmlPages; i++) {
-    parseHtml(properties.globo.html + '&page='+i);
+    parseHtml(properties.globo.html + '&page=' + i);
   }
 
   function parseHtml(url) {
-    log.debug('Parsing '+url);
+    log.debug('Parsing ' + url);
     let html = new ParseHTML(url);
     html.start((posts) => {
       if (!posts) return;
@@ -143,13 +143,13 @@ exports.html = () => {
 function saveNews(news, type) {
   news.save(function(err) {
     if (err && err.code === 11000) {
-      log.debug('News ' +news._id+ ' already exists');
+      log.debug('News ' + news._id + ' already exists');
       return;
     }
     if (err) {
       log.error(err);
       return;
     }
-    log.info('Save '+ type + ' '+ news._id);
+    log.info('Save ' + type + ' ' + news._id);
   });
 }

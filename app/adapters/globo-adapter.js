@@ -150,8 +150,8 @@ function saveNews(news, type) {
       return;
     }
     if (err) {
+      log.error(news);
       log.error(err);
-      log.error(err.code);
       return;
     }
     log.info('Save ' + type + ' ' + news.link);

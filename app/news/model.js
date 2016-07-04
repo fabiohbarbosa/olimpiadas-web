@@ -18,18 +18,11 @@ let NewsSchema = new Schema({
 
 NewsSchema.pre('save', function(callback) {
   try {
-    this._id = removeLastChar(this._id);
     this.title = replaceRegexChars(this.title);
     this.body = replaceRegexChars(this.body);
     return callback();
   } catch (err) {
     return callback(err);
-  }
-
-  function removeLastChar(str) {
-    if (str.slice(-1) === '/') {
-      return str.slice(0, -1);
-    }
   }
 
   function replaceRegexChars(str) {

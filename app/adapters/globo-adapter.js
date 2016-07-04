@@ -22,7 +22,7 @@ exports.rss = () => {
     _.forEach(posts, (post) => {
       if (!post) return;
 
-      let link = post.link;
+      let link = removeLastChar(post.link);
       if (!link || link.indexOf('olimpiadas') <= 0) return;
 
       let title = post.title;
@@ -107,7 +107,7 @@ exports.html = () => {
           .children('.busca-link-url').attr('href');
         if (!link) return;
 
-        link = adapterLink(link);
+        link = removeLastChar(adapterLink(link));
 
         // img
         let img = materiaPadrao.children().last()
@@ -152,4 +152,10 @@ function saveNews(news, type) {
     }
     log.info('Save ' + type + ' ' + news._id);
   });
+}
+
+function removeLastChar(str) {
+  if (str.slice(-1) === '/') {
+    return str.slice(0, -1);
+  }
 }

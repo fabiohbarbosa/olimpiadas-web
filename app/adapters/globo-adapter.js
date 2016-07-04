@@ -48,7 +48,7 @@ exports.rss = () => {
   function adapterBody(description) {
     if (!description) return;
 
-    let body = {};
+    let body = description;
 
     description = description.split('<br />');
     if (description.length === 2) {

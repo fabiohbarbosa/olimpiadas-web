@@ -6,7 +6,6 @@ mongo:
     url: mongodb://localhost/olimpiadas
     drop: true
   prod:
-    url: mongodb://olimpiadas:olimpiadas832603#@ds011785.mlab.com:11785/olimpiadas
     drop: false
 
 globo:

@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import {
   log,
   properties,
-  nodeEnv
+  nodeEnv,
+  mongoUrl
 } from '../utils';
 
 let singleConnection = false;
@@ -14,7 +15,6 @@ module.exports = () => {
   }
 
   singleConnection = true;
-  let mongoUrl = properties.mongo[nodeEnv].url;
 
   let con = mongoose.connect(mongoUrl, (err) => {
     if (!err) {

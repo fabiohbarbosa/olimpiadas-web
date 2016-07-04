@@ -56,6 +56,14 @@ function nodeEnv() {
   return process.env.NODE_ENV;
 }
 
+function mongoUrl() {
+  let mongoUrl = process.env.MONGO_URL;
+  if (!mongoUrl) {
+    mongoUrl = properties.mongo[nodeEnv()].url
+  }
+  return mongoUrl;
+}
+
 function objectToJson(msg) {
   if (!(msg instanceof Object)) {
     return msg;
@@ -69,4 +77,5 @@ function objectToJson(msg) {
 
 exports.properties = properties;
 exports.log = logger();
+exports.mongoUrl = mongoUrl();
 exports.nodeEnv = nodeEnv();

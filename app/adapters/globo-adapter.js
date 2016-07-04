@@ -14,7 +14,7 @@ import {
 import News from '../news/model';
 
 exports.rss = () => {
-  log.info('Starting RSS parse');
+  log.debug('Starting RSS parse');
 
   let rss = new ParseRSS(properties.globo.rss);
 
@@ -73,7 +73,7 @@ exports.rss = () => {
 };
 
 exports.html = () => {
-  log.info('Starting HTML parse');
+  log.debug('Starting HTML parse');
   for (let i = 1; i <= properties.globo.htmlPages; i++) {
     parseHtml(properties.globo.html + '&page=' + i);
   }

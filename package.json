@@ -6,8 +6,9 @@
   "scripts": {
     "clear": "rm -rf build && mkdir build",
     "docker": "docker-compose up -d",
-    "start": "npm run clear && cp ./app/properties.yaml ./build && ./node_modules/.bin/./babel -d ./build ./app/ && node ./build/server.js",
+    "start": "npm run clear && cp ./app/properties.yaml ./build && npm run build && node ./build/server.js",
     "start-dev": " npm run docker && ./node_modules/.bin/nodemon -e js,yaml --exec babel-node app/server.js",
+    "build": "./node_modules/.bin/babel -d ./build/ ./app/",
     "lint": "./node_modules/.bin/eslint ./app/ --quiet",
     "test": "echo \"No test specified\" && exit 0",
     "logs-prod": "heroku logs -t --app olimpiadas-web",

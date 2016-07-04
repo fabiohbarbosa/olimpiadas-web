@@ -57,11 +57,10 @@ function nodeEnv() {
 }
 
 function mongoUrl() {
-  let mongoUrl = process.env.MONGO_URL;
-  if (!mongoUrl) {
-    mongoUrl = properties.mongo[nodeEnv()].url
+  if (mongoUrl) {
+    return mongoUrl;
   }
-  return mongoUrl;
+  return properties.mongo[nodeEnv()].url;
 }
 
 function objectToJson(msg) {

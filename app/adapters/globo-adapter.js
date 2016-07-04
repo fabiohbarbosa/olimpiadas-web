@@ -22,7 +22,7 @@ exports.rss = () => {
     _.forEach(posts, (post) => {
       if (!post) return;
 
-      let link = removeLastChar(post.link);
+      let link = post.link;
       if (!link || link.indexOf('olimpiadas') <= 0) return;
 
       let title = post.title;
@@ -35,7 +35,7 @@ exports.rss = () => {
       if (!img) return;
 
       let news = new News();
-      news._id = link;
+      news.link = link;
       news.title = title;
       news.body = body;
       news.img = img;
@@ -107,7 +107,8 @@ exports.html = () => {
           .children('.busca-link-url').attr('href');
         if (!link) return;
 
-        link = removeLastChar(adapterLink(link));
+        link = adapterLink(link);
+        if (!link) return;
 
         // img
         let img = materiaPadrao.children().last()
@@ -115,7 +116,7 @@ exports.html = () => {
         if (!img) return;
 
         let news = new News();
-        news._id = link;
+        news.link = link;
         news.title = title;
         news.body = body;
         news.img = img;
@@ -141,21 +142,18 @@ exports.html = () => {
 };
 
 function saveNews(news, type) {
+  if (!news) return;
+
   news.save(function(err) {
     if (err && err.code === 11000) {
-      log.debug('News ' + news._id + ' already exists');
+      log.debug('News ' + news.link + ' already exists');
       return;
     }
     if (err) {
       log.error(err);
+      log.error(err.code);
       return;
     }
-    log.info('Save ' + type + ' ' + news._id);
+    log.info('Save ' + type + ' ' + news.link);
   });
-}
-
-function removeLastChar(str) {
-  if (str.slice(-1) === '/') {
-    return str.slice(0, -1);
-  }
 }

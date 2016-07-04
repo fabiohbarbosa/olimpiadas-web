@@ -4,9 +4,12 @@ let mongoose = require('../config/mongo-connection')();
 let Schema = mongoose.Schema;
 
 let NewsSchema = new Schema({
-  _id: String,
   title: String,
   body: String,
+  link: {
+    type:String,
+    index: { unique: true }
+  },
   img: String,
   type: String,
   date: {
@@ -15,18 +18,16 @@ let NewsSchema = new Schema({
   }
 });
 
-
 NewsSchema.pre('save', function(callback) {
   try {
-    this.title = replaceRegexChars(this.title);
-    this.body = replaceRegexChars(this.body);
+    if (this.link.slice(-1) === '/') {
+      this.link = this.link.slice(0, -1);
+    }
+    this.title = this.title.replace(/\r?\n|\r/g, "");
+    this.body = this.body.replace(/\r?\n|\r/g, "");
     return callback();
   } catch (err) {
     return callback(err);
-  }
-
-  function replaceRegexChars(str) {
-    return str.replace(/\r?\n|\r/g, "");
   }
 });
 

@@ -50,18 +50,11 @@ function traceCaller(n) {
 }
 
 function nodeEnv() {
-  if (process.env.NODE_ENV) {
-    return process.env.NODE_ENV;
-  }
-  return 'local';
+  return process.env.NODE_ENV || 'local';
 }
 
 function mongoUrl() {
-  let url = process.env.MONGO_URL;
-  if (url) {
-    return url;
-  }
-  return properties.mongo[nodeEnv()].url;
+  return process.env.MONGO_URL || properties.mongo[nodeEnv()].url;
 }
 
 function objectToJson(msg) {

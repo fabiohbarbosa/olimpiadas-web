@@ -7,7 +7,7 @@ let NewsSchema = new Schema({
   title: String,
   body: String,
   link: {
-    type:String,
+    type: String,
     index: { unique: true }
   },
   img: String,

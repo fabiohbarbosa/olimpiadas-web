@@ -23,8 +23,8 @@ NewsSchema.pre('save', function(callback) {
     if (this.link.slice(-1) === '/') {
       this.link = this.link.slice(0, -1);
     }
-    this.title = this.title.replace(/\r?\n|\r/g, "");
-    this.body = this.body.replace(/\r?\n|\r/g, "");
+    this.title = this.title.replace(/\r?\n|\r/g, "").trim();
+    this.body = this.body.replace(/\r?\n|\r/g, "").trim();
     return callback();
   } catch (err) {
     return callback(err);

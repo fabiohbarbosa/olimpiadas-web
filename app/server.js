@@ -17,5 +17,7 @@ load('controllers')
 
 scheduler.start();
 
-app.listen(8080);
-log.info('Server started on port 8080');
+let port = process.env.PORT || 8080;
+app.listen(port);
+
+log.info('Server started on port ' + port);

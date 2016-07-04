@@ -7,7 +7,7 @@ mongo:
     drop: true
   prod:
     url: mongodb://olimpiadas:olimpiadas832603#@ds011785.mlab.com:11785/olimpiadas
-    drop: true
+    drop: false
 
 globo:
   defaultImg: http://s2.glbimg.com/oGsIO2lliZ5zSP0QSV-kEtwZzXU=/0x1:234x146/234x145/s.glbimg.com/pv/an/f/original/2013/10/25/globoesporte_internas.jpg

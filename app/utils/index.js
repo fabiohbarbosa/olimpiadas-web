@@ -58,7 +58,7 @@ function nodeEnv() {
 
 function mongoUrl() {
   let url = process.env.MONGO_URL;
-  if (!url) {
+  if (url) {
     return url;
   }
   return properties.mongo[nodeEnv()].url;

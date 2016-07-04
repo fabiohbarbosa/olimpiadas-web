@@ -18,7 +18,7 @@ let NewsSchema = new Schema({
 
 NewsSchema.pre('save', function(callback) {
   try {
-    this.link = removeLastChar(this.link);
+    this._id = removeLastChar(this._id);
     this.title = replaceRegexChars(this.title);
     this.body = replaceRegexChars(this.body);
     return callback();

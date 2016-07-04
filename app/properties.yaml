@@ -5,7 +5,7 @@ mongo:
   local:
     url: mongodb://localhost/olimpiadas
     drop: true
-  prod:
+  production:
     drop: false
 
 globo:

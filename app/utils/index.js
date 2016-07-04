@@ -50,10 +50,10 @@ function traceCaller(n) {
 }
 
 function nodeEnv() {
-  if (!process.env.NODE_ENV) {
-    process.env.NODE_ENV = 'local';
+  if (process.env.NODE_ENV) {
+    return process.env.NODE_ENV;
   }
-  return process.env.NODE_ENV;
+  return 'local';
 }
 
 function mongoUrl() {

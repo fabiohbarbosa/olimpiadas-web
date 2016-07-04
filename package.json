@@ -10,6 +10,7 @@
     "start-dev": " npm run docker && ./node_modules/.bin/nodemon -e js,yaml --exec babel-node app/server.js",
     "lint": "./node_modules/.bin/eslint ./app/ --quiet",
     "test": "echo \"No test specified\" && exit 0",
+    "logs-prod": "heroku logs -t --app olimpiadas-web",
     "validate": "npm run lint && npm outdated --depth 0 && npm run test"
   },
   "repository": {

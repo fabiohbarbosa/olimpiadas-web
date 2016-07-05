@@ -8,6 +8,6 @@ module.exports = (router) => {
   router.get('/health-check', healthCheck);
 };
 
-function healthCheck(req, res, next) {
+function healthCheck(req, res, next) {  // eslint-disable-line no-unused-vars
   res.status(HttpStatus.OK).json({'message': 'OK'});
 }

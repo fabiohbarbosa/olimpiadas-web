@@ -4,7 +4,7 @@ import Log from 'log';
 let properties = YAML.load(__dirname + '/../properties.yaml');
 
 function logger() {
-  let log = new Log(properties.log.level);
+  let log = new Log(process.env.LOG_LEVEL || properties.log.level);
   let logger_info_old = log.info;
   let logger_debug_old = log.debug;
   let logger_error_old = log.error;

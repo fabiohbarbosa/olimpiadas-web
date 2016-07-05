@@ -1,6 +1,7 @@
-// import Mongoose from '../config/mongo-connection';
-let mongoose = require('../config/mongo-connection')();
+import Mongoose from '../config/mongo-connection';
+// let mongoose = require('../config/mongo-connection')();
 
+let mongoose = new Mongoose();
 let Schema = mongoose.Schema;
 
 let NewsSchema = new Schema({

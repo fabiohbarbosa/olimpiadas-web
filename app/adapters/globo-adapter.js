@@ -14,7 +14,7 @@ import {
 import News from '../news/model';
 
 exports.rss = () => {
-  log.info('Starting RSS parse');
+  log.debug('Starting RSS parse');
 
   let rss = new ParseRSS(properties.globo.rss);
 
@@ -35,7 +35,7 @@ exports.rss = () => {
       if (!img) return;
 
       let news = new News();
-      news._id = link;
+      news.link = link;
       news.title = title;
       news.body = body;
       news.img = img;
@@ -48,7 +48,7 @@ exports.rss = () => {
   function adapterBody(description) {
     if (!description) return;
 
-    let body = {};
+    let body = description;
 
     description = description.split('<br />');
     if (description.length === 2) {
@@ -73,7 +73,7 @@ exports.rss = () => {
 };
 
 exports.html = () => {
-  log.info('Starting HTML parse');
+  log.debug('Starting HTML parse');
   for (let i = 1; i <= properties.globo.htmlPages; i++) {
     parseHtml(properties.globo.html + '&page=' + i);
   }
@@ -108,6 +108,7 @@ exports.html = () => {
         if (!link) return;
 
         link = adapterLink(link);
+        if (!link) return;
 
         // img
         let img = materiaPadrao.children().last()
@@ -115,7 +116,7 @@ exports.html = () => {
         if (!img) return;
 
         let news = new News();
-        news._id = link;
+        news.link = link;
         news.title = title;
         news.body = body;
         news.img = img;
@@ -141,15 +142,18 @@ exports.html = () => {
 };
 
 function saveNews(news, type) {
+  if (!news) return;
+
   news.save(function(err) {
     if (err && err.code === 11000) {
-      log.debug('News ' + news._id + ' already exists');
+      log.debug('News ' + news.link + ' already exists');
       return;
     }
     if (err) {
+      log.error(news);
       log.error(err);
       return;
     }
-    log.info('Save ' + type + ' ' + news._id);
+    log.info('Save ' + type + ' ' + news.link);
   });
 }

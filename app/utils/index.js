@@ -50,10 +50,11 @@ function traceCaller(n) {
 }
 
 function nodeEnv() {
-  if (!process.env.NODE_ENV) {
-    process.env.NODE_ENV = 'local';
-  }
-  return process.env.NODE_ENV;
+  return process.env.NODE_ENV || 'local';
+}
+
+function mongoUrl() {
+  return process.env.MONGO_URL || properties.mongo[nodeEnv()].url;
 }
 
 function objectToJson(msg) {
@@ -69,4 +70,5 @@ function objectToJson(msg) {
 
 exports.properties = properties;
 exports.log = logger();
+exports.mongoUrl = mongoUrl();
 exports.nodeEnv = nodeEnv();

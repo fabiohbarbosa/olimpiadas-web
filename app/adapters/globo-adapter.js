@@ -3,8 +3,7 @@ import cheerio from 'cheerio';
 
 import {
   ParseRSS,
-  ParseHTML,
-  dateRSS
+  ParseHTML
 } from '../parser';
 
 import {

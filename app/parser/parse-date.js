@@ -1,5 +1,7 @@
 import moment from 'moment-timezone';
 
+import ErrorException from '../exceptions/error-exception';
+
 function dateRSS(date) {
   return moment(date, 'ddd, DD MMM YYYY HH:mm:ss ZZ').toDate();
 }
@@ -10,7 +12,7 @@ function dateHTML(now, txt) {
     throw new ErrorException('Invalid date');
   }
 
-  let number = parseInt(dateTxt.split(' ')[0]);
+  let number = parseInt(dateTxt.split(' ')[0], 0);
   let duration = dateTxt.split(' ')[1].toLowerCase();
 
   if (!number || !duration) {

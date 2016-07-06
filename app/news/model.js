@@ -1,5 +1,4 @@
 import Mongoose from '../config/mongo-connection';
-// let mongoose = require('../config/mongo-connection')();
 
 let mongoose = new Mongoose();
 let Schema = mongoose.Schema;
@@ -13,7 +12,8 @@ let NewsSchema = new Schema({
   },
   img: String,
   type: String,
-  date: {
+  pubDate: Date,
+  createDate: {
     type: Date,
     default: new Date()
   }

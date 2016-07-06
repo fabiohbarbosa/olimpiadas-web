@@ -1,8 +1,9 @@
-let url;
 import ErrorException from '../exceptions/error-exception';
 import FeedParser from 'feedparser';
 import request from 'request';
 import { log } from '../utils';
+
+let url;
 
 module.exports = (_url) => {
   url = _url;
@@ -31,7 +32,7 @@ function start(callback) {
     let post = this.read();
     while (post) {
       posts.push({
-        date: post.date,
+        pubDate: post.pubDate,
         title: post.title,
         link: post.link,
         description: post.description

@@ -3,7 +3,8 @@ import cheerio from 'cheerio';
 
 import {
   ParseRSS,
-  ParseHTML
+  ParseHTML,
+  dateRSS
 } from '../parser';
 
 import {
@@ -31,6 +32,9 @@ exports.rss = () => {
       let body = adapterBody(post.description);
       if (!body) return;
 
+      let pubDate = post.pubDate;
+      if (!pubDate) return;
+
       let img = adapterImg(post.description);
       if (!img) return;
 
@@ -38,6 +42,7 @@ exports.rss = () => {
       news.link = link;
       news.title = title;
       news.body = body;
+      news.pubDate = pubDate;
       news.img = img;
       news.type = 'RSS';
 

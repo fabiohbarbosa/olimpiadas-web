@@ -3,7 +3,8 @@ import cheerio from 'cheerio';
 
 import {
   ParseRSS,
-  ParseHTML
+  ParseHTML,
+  dateHTML
 } from '../parser';
 
 import {
@@ -106,6 +107,25 @@ exports.html = () => {
         if (!body) return;
         body = body.trim().replace("\n", "");
 
+        //pubDate
+        let dateTxt = materiaPadrao.children('.busca-editorial')
+          .children('.busca-tempo-decorrido').text();
+        if (!dateTxt) return;
+
+        let pubDate = {};
+        try {
+          if (dateTxt.indexOf('há') <= 0) {
+            pubDate = dateHTML(dateTxt);
+          } else {
+            pubDate = dateHTML(dateTxt, new Date());
+          }
+        } catch (err) {
+          log.error(dateTxt);
+          log.error(err);
+          return;
+        }
+        if (!pubDate) return;
+
         //link
         let link = materiaPadrao.children().last()
           .children('.busca-link-url').attr('href');
@@ -123,6 +143,7 @@ exports.html = () => {
         news.link = link;
         news.title = title;
         news.body = body;
+        news.pubDate = pubDate;
         news.img = img;
         news.type = 'HTML';
 

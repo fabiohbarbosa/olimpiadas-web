@@ -17,6 +17,6 @@ function globoScheduling() {
   // */10 * * * * *
   schedule.scheduleJob('*/10 * * * * *', function() {
     globoAdapter.rss();
-    // globoAdapter.html();
+    globoAdapter.html();
   });
 }

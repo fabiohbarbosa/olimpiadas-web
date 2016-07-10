@@ -1,4 +1,6 @@
 import http from 'http';
+import cheerio from 'cheerio';
+
 import ErrorException from '../exceptions/error-exception';
 
 let url;
@@ -22,7 +24,7 @@ function start(callback) {
     });
 
     res.on("end", () => {
-      callback(data);
+      callback(cheerio.load(data));
     });
   }).on("error", () => {
     callback(null);

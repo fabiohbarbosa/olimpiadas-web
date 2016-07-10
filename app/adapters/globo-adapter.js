@@ -86,10 +86,8 @@ exports.html = () => {
   function parseHtml(url) {
     log.debug('Parsing ' + url);
     let html = new ParseHTML(url);
-    html.start((posts) => {
-      if (!posts) return;
-
-      let $ = cheerio.load(posts);
+    html.start(($) => {
+      if (!$) return;
 
       $('.resultado_da_busca').contents().each((index, element) => {
 

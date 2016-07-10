@@ -15,6 +15,7 @@ let NewsSchema = new Schema({
   pubDate: Date,
   createDate: {
     type: Date,
+    index: { required: false },
     default: new Date()
   }
 });

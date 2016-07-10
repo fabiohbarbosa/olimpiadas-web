@@ -18,3 +18,8 @@ npm run validate
 ```sh
 heroku logs -t --app olimpiadas-web
 ```
+
+### Config
+```sh
+heroku:config
+```

@@ -3,17 +3,18 @@ import moment from 'moment-timezone';
 import ErrorException from '../exceptions/error-exception';
 
 function dateRSS(date) {
-  return moment(date, 'ddd, DD MMM YYYY HH:mm:ss ZZ').tz('America/Sao_Paulo').toDate();
+  return moment(date, 'ddd, DD MMM YYYY HH:mm:ss ZZ').toDate();
 }
 
 function dateHTML(txt, now) {
   if (!now) {
     txt = txt.replace('h', ':');
-    return moment(txt, 'DD/MM/YYYY HH:mm').tz('America/Sao_Paulo').toDate();
+    txt = txt+':00 -0300';
+    return moment(txt, 'DD/MM/YYYY HH:mm:ss ZZ').toDate();
   }
   if (!txt) throw new ErrorException('Txt is undefined');
 
-  now = moment(now).tz('America/Sao_Paulo').toDate();
+  now = moment(now).toDate();
   let dateTxt = txt.toLowerCase().split('há')[1].trim();
 
   if (!dateTxt) throw new ErrorException('Invalid txt ' + txt);
@@ -25,10 +26,10 @@ function dateHTML(txt, now) {
 
   // chain
   if (duration === 'horas' || duration === 'hora') {
-    return moment(now).tz('America/Sao_Paulo').subtract(number, 'hours').toDate();
+    return moment(now).subtract(number, 'hours').toDate();
   }
   if (duration === 'dias' || duration === 'dia') {
-    return moment(now).tz('America/Sao_Paulo').subtract(number, 'days').toDate();
+    return moment(now).subtract(number, 'days').toDate();
   }
 }
 

@@ -1,25 +1,33 @@
 import _ from 'lodash';
 import cheerio from 'cheerio';
 
-import {
-  ParseRSS,
-  ParseHTML,
-  dateHTML
-} from '../parser';
-
-import {
-  log,
-  properties
-} from '../utils';
-
+import { ParseRSS, ParseHTML, dateHTML } from '../parser';
+import { log, properties } from '../utils';
 import News from '../news/model';
 
-exports.rss = () => {
+function saveNews(news, type) {
+  if (!news) return;
+
+  news.save(function(err) {
+    if (err && err.code === 11000) {
+      log.debug('News ' + news.link + ' already exists');
+      return;
+    }
+    if (err) {
+      log.error(news);
+      log.error(err);
+      return;
+    }
+    log.info('Save ' + type + ' ' + news.link);
+  });
+}
+
+function rss() {
   log.debug('Starting RSS parse');
 
-  let rss = new ParseRSS(properties.globo.rss);
+  let parse = new ParseRSS(properties.globo.rss);
 
-  rss.start((posts) => {
+  parse.start((posts) => {
     _.forEach(posts, (post) => {
       if (!post) return;
 
@@ -74,10 +82,9 @@ exports.rss = () => {
     }
     return img;
   }
+}
 
-};
-
-exports.html = () => {
+function html() {
   log.debug('Starting HTML parse');
   for (let i = 1; i <= properties.globo.htmlPages; i++) {
     parseHtml(properties.globo.html + '&page=' + i);
@@ -85,8 +92,9 @@ exports.html = () => {
 
   function parseHtml(url) {
     log.debug('Parsing ' + url);
-    let html = new ParseHTML(url);
-    html.start(($) => {
+    let parse = new ParseHTML(url);
+
+    parse.start(($) => {
       if (!$) return;
 
       $('.resultado_da_busca').contents().each((index, element) => {
@@ -162,21 +170,7 @@ exports.html = () => {
     }
     return decodeURIComponent(ahref[0]);
   }
-};
-
-function saveNews(news, type) {
-  if (!news) return;
-
-  news.save(function(err) {
-    if (err && err.code === 11000) {
-      log.debug('News ' + news.link + ' already exists');
-      return;
-    }
-    if (err) {
-      log.error(news);
-      log.error(err);
-      return;
-    }
-    log.info('Save ' + type + ' ' + news.link);
-  });
 }
+
+exports.rss = rss;
+exports.html = html;

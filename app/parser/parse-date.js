@@ -9,7 +9,7 @@ function dateRSS(date) {
 function dateHTML(txt, now) {
   if (!now) {
     txt = txt.replace('h', ':');
-    txt = txt+':00 -0300';
+    txt += ':00 -0300';
     return moment(txt, 'DD/MM/YYYY HH:mm:ss ZZ').toDate();
   }
   if (!txt) throw new ErrorException('Txt is undefined');

@@ -4,6 +4,7 @@ import { log } from '../utils';
 import { ParseHTML, dateHTML } from '../parser';
 import News from '../news/model';
 
+/* Corrigir link das notícias com vídeo */
 function fixLink() {
   let query = {
     link: { $not: /.*.html.*/ }
@@ -35,7 +36,6 @@ function fixLink() {
 }
 
 function fixDate() {
-/*
   let query = {
     $or: [{
       fixed: {
@@ -43,10 +43,6 @@ function fixDate() {
       },
       fixed: null
     }]
-  };
-*/
-  let query = {
-    link: { $not: /.*video.*/ }
   };
 
   News.find(query).limit(10).exec((err, news) => {

@@ -20,7 +20,7 @@ function fixLink() {
   });
 
   function parseLink(n) {
-    n.link += n.link.slice(0, -1);
+    n.link = n.link.split('/http://')[0];
     n.fixed = true;
 
     n.save((err) => {

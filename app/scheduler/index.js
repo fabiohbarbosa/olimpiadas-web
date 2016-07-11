@@ -25,7 +25,7 @@ function globo() {
 
 function support() {
   log.debug('Scheduling support');
-  schedule.scheduleJob('*/10 * * * *', function() {
+  schedule.scheduleJob('*/1 * * * *', function() {
     fixDate();
   });
 }

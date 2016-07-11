@@ -61,13 +61,13 @@ function fixDate() {
       return;
     }
 
-    let parse = new ParseHTML(n.link + '/');
+    let parse = new ParseHTML(n.link);
 
     parse.start(($) => {
       if (!$) return;
 
-      //chain
-      // first executor
+      // chain
+      // executor 1
       let dateTime = $('.published').children('time').text();
       if (!dateTime) {
         log.debug('Date default not found for ' + n.link);
@@ -80,6 +80,7 @@ function fixDate() {
       updateNews(dateTime);
       return;
 
+      // executor 2
       function blogBrasil() {
         dateTime = $('time[itemprop="datePublished"]').text().trim();
         if (!dateTime) {
@@ -100,6 +101,7 @@ function fixDate() {
         updateNews(dateTime[1]);
       }
 
+      // executor 3
       function videoFix() {
         dateTime = $('time[itemprop="datePublished"]').attr('datetime');
         if (!dateTime) {
@@ -112,6 +114,7 @@ function fixDate() {
         updateNews(dateTime);
       }
 
+      // executor 4
       function notFoundFix() {
         n.fixed = true;
         n.save((err) => {

@@ -6,8 +6,8 @@ import {fixDate} from '../support';
 
 exports.start = () => {
   log.debug('Scheduling start');
-  globo();
-  // support();
+  // globo();
+  support();
 };
 
 function globo() {
@@ -17,7 +17,7 @@ function globo() {
 
   // 10 segundos
   // */10 * * * * *
-  schedule.scheduleJob('*/10 * * * *', function() {
+  schedule.scheduleJob('*/10 * * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();
   });
@@ -25,7 +25,7 @@ function globo() {
 
 function support() {
   log.debug('Scheduling support');
-  schedule.scheduleJob('*/1 * * * *', function() {
+  schedule.scheduleJob('*/10 * * * *', function() {
     fixDate();
   });
 }

@@ -113,9 +113,10 @@ function html() {
         if (!body) return;
         body = body.trim().replace("\n", "");
 
-        //pubDate
+        // pub date
         let dateTxt = materiaPadrao.children('.busca-editorial')
           .children('.busca-tempo-decorrido').text();
+
         if (!dateTxt) return;
 
         let pubDate = {};

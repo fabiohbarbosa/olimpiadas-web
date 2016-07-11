@@ -4,6 +4,7 @@ import glob from 'glob';
 import bodyParser from 'body-parser';
 
 import {
+  properties,
   log,
   nodeEnv
 } from './utils';
@@ -12,11 +13,10 @@ log.info("Application starting to profile '" + nodeEnv + "'");
 
 let app = express();
 
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || properties.server.port;
 app.listen(port);
 
 // routes and body parser
-// json body
 log.debug('Configuring JSON body parser');
 app.use(bodyParser.urlencoded({
   extended: true

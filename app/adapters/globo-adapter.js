@@ -8,7 +8,7 @@ import News from '../news/model';
 function saveNews(news, type) {
   if (!news) return;
 
-  news.save(function(err) {
+  news.save((err) => {
     if (err && err.code === 11000) {
       log.debug('News ' + news.link + ' already exists');
       return;

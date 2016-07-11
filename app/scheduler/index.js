@@ -2,13 +2,15 @@ import {log} from '../utils/';
 
 import schedule from 'node-schedule';
 import {globoAdapter} from '../adapters';
+import {fixDate, fixLink} from '../support';
 
 exports.start = () => {
   log.debug('Scheduling start');
-  globoScheduling();
+  // globo();
+  support();
 };
 
-function globoScheduling() {
+function globo() {
   log.debug('Scheduling globo adapter');
   // 10 minutos
   // */10 * * * *
@@ -19,4 +21,9 @@ function globoScheduling() {
     globoAdapter.rss();
     globoAdapter.html();
   });
+}
+
+function support() {
+  log.debug('Scheduling support');
+  fixLink();
 }

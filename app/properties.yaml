@@ -1,10 +1,13 @@
+server:
+  port: 5000
+
 log:
-  level: INFO
+  level: DEBUG
 
 mongo:
   local:
     url: mongodb://localhost/olimpiadas
-    drop: true
+    drop: false
   production:
     drop: false
 

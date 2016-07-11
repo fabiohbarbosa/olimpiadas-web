@@ -17,14 +17,15 @@ let NewsSchema = new Schema({
     type: Date,
     index: { required: false },
     default: new Date()
+  },
+  fixed: {
+    type: Boolean,
+    index: { required: false }
   }
 });
 
 NewsSchema.pre('save', function(callback) {
   try {
-    if (this.link.slice(-1) === '/') {
-      this.link = this.link.slice(0, -1);
-    }
     this.title = this.title.replace(/\r?\n|\r/g, "").trim();
     this.body = this.body.replace(/\r?\n|\r/g, "").trim();
     return callback();

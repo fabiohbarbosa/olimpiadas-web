@@ -6,7 +6,7 @@ import {fixDate} from '../support';
 
 exports.start = () => {
   log.debug('Scheduling start');
-  globo();
+  // globo();
   support();
 };
 

@@ -13,8 +13,10 @@ function dateHTML(txt, now) {
   if (!now) {
     if (txt.indexOf('às') >= 1) {
       txt = txt.replace('às', '');
-    } else {
+    } else if (txt.indexOf('h') >= 1) {
       txt = txt.replace('h', ':');
+    } else {
+      return moment(txt).toDate();
     }
     return moment(txt + ':00 -0300', 'DD/MM/YYYY HH:mm:ss ZZ').toDate();
   }

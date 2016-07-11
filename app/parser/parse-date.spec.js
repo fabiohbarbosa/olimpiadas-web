@@ -139,4 +139,15 @@ describe('dateHTML', () => {
     assert.equal('00', date.format('ss'));
   });
 
+  it('2016-07-05T16:17:36.000Z', () => {
+    let date = moment(dateHTML('2016-03-05T16:17:36.000Z')).tz('Europe/London');
+
+    assert.equal('05', date.format("DD"));
+    assert.equal('03', date.format("MM"));
+    assert.equal('2016', date.format("YYYY"));
+    assert.equal('16', date.format('HH'));
+    assert.equal('17', date.format('mm'));
+    assert.equal('36', date.format('ss'));
+  });
+
 });

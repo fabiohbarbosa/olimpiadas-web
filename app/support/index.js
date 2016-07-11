@@ -36,12 +36,23 @@ function fixLink() {
 }
 
 function fixDate() {
+  // let query = {
+  //   link: { $not: /.*.globoplay.*/ }
+  //   $or: [{
+  //     fixed: {
+  //       $exists: false
+  //     },
+  //     fixed: null
+  //   }]
+  // };
+
   let query = {
+    link: /.*.globoplay.*/,
     $or: [{
       fixed: {
         $exists: false
       },
-      fixed: null
+      fixed: null // eslint-disable-line no-dupe-keys
     }]
   };
 
@@ -107,7 +118,7 @@ function fixDate() {
         if (!dateTime) {
           log.debug('Video date not found for ' + n.link);
           log.debug('Next execution...');
-          notFoundFix();
+          globoPlay();
           return;
         }
         log.debug('Updating ' + n.link + ' from video fix');
@@ -115,7 +126,16 @@ function fixDate() {
       }
 
       function globoPlay() {
-        dateTime = $('meta [itemprop="datePublished"]').attr('content');
+        dateTime = $('meta[itemprop="datePublished"]').attr('content');
+
+        if (!dateTime) {
+          log.debug('Globo play date not found for ' + n.link);
+          log.debug('Next execution...');
+          notFoundFix();
+          return;
+        }
+        log.debug('Updating ' + n.link + ' from globoplay fix');
+        updateNews(dateTime);
       }
 
       // executor 4

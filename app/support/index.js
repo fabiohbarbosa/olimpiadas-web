@@ -36,18 +36,7 @@ function fixLink() {
 }
 
 function fixDate() {
-  // let query = {
-  //   link: { $not: /.*.globoplay.*/ }
-  //   $or: [{
-  //     fixed: {
-  //       $exists: false
-  //     },
-  //     fixed: null
-  //   }]
-  // };
-
   let query = {
-    link: /.*.globoplay.*/,
     $or: [{
       fixed: {
         $exists: false

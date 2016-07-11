@@ -114,6 +114,10 @@ function fixDate() {
         updateNews(dateTime);
       }
 
+      function globoPlay() {
+        dateTime = $('meta [itemprop="datePublished"]').attr('content');
+      }
+
       // executor 4
       function notFoundFix() {
         n.fixed = true;

@@ -123,7 +123,7 @@ function fixDate() {
             log.error(err);
             return;
           }
-          log.info(n.link + ' not updated');
+          log.error(n.link + ' not updated');
         });
       }
 

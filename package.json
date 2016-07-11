@@ -12,7 +12,7 @@
     "lint": "./node_modules/.bin/eslint ./app/ --quiet",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register app/**/**spec.js",
     "logs-prod": "heroku logs -t --app olimpiadas-web",
-    "validate": "npm outdated --depth 0 && npm run test"
+    "validate": "npm run lint && npm outdated --depth 0 && npm run test"
   },
   "repository": {
     "type": "git",

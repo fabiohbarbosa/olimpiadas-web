@@ -6,13 +6,7 @@ import News from '../news/model';
 
 function fixLink() {
   let query = {
-    link: { $not: /.*.html.*/ },
-    $or: [{
-      fixed: {
-        $exists: false
-      },
-      fixed: null
-    }]
+    link: { $not: /.*.html.*/ }
   };
 
   News.find(query, (err, news) => {
@@ -26,11 +20,7 @@ function fixLink() {
   });
 
   function parseLink(n) {
-    if (n.link.slice(-1) === '/') {
-      log.info('Link ' + n.link + ' contain char "/"');
-      return;
-    }
-    n.link += '//';
+    n.link += n.link.slice(0, -1);
     n.fixed = true;
 
     n.save((err) => {

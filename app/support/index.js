@@ -120,7 +120,7 @@ function fixDate() {
         if (!dateTime) {
           log.debug('Globo play date not found for ' + n.link);
           log.debug('Next execution...');
-          // notFoundFix();
+          notFoundFix();
           return;
         }
         log.debug('Updating ' + n.link + ' from globoplay fix');
@@ -129,7 +129,7 @@ function fixDate() {
 
       // executor 4
       function notFoundFix() {
-        n.fixed = true;
+        n.fixed = false;
         n.save((err) => {
           if (err) {
             log.error(n);

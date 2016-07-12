@@ -8,7 +8,7 @@
     "docker": "docker-compose up -d",
     "start": "npm run clear && cp ./app/properties.yaml ./build && npm run build && node ./build/server.js",
     "start-dev": " npm run docker && ./node_modules/.bin/nodemon --ignore 'app/**/**spec.js' -e js,yaml --exec babel-node app/server.js",
-    "build": "./node_modules/.bin/babel -d ./build/ ./app/",
+    "build": "./node_modules/.bin/babel -d ./build/ ./app/ --ignore '**/*.spec.js'",
     "lint": "./node_modules/.bin/eslint ./app/ --quiet",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register app/**/**spec.js",
     "logs-prod": "heroku logs -t --app olimpiadas-web",
@@ -47,7 +47,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "supertest": "^1.2.0"
   },
   "engines": {
     "node": ">=6.0.0"

@@ -36,18 +36,7 @@ function fixLink() {
 }
 
 function fixDate() {
-  // let query = {
-  //   link: { $not: /.*.globoplay.*/ }
-  //   $or: [{
-  //     fixed: {
-  //       $exists: false
-  //     },
-  //     fixed: null
-  //   }]
-  // };
-
   let query = {
-    link: /.*.globoplay.*/,
     $or: [{
       fixed: {
         $exists: false
@@ -131,7 +120,7 @@ function fixDate() {
         if (!dateTime) {
           log.debug('Globo play date not found for ' + n.link);
           log.debug('Next execution...');
-          notFoundFix();
+          // notFoundFix();
           return;
         }
         log.debug('Updating ' + n.link + ' from globoplay fix');

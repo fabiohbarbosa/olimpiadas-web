@@ -2,12 +2,10 @@ import {log} from '../utils/';
 
 import schedule from 'node-schedule';
 import {globoAdapter} from '../adapters';
-import {fixDate} from '../support';
 
 exports.start = () => {
   log.debug('Scheduling start');
-  // globo();
-  support();
+  globo();
 };
 
 function globo() {
@@ -20,12 +18,5 @@ function globo() {
   schedule.scheduleJob('*/10 * * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();
-  });
-}
-
-function support() {
-  log.debug('Scheduling support');
-  schedule.scheduleJob('*/1 * * * *', function() {
-    fixDate();
   });
 }

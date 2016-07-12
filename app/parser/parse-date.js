@@ -24,11 +24,14 @@ function dateHTML(txt, now) {
   // executor 3
   now = moment(now).toDate();
   let dateExec2 = txt.toLowerCase().split('há')[1].trim();
+  if (dateExec2 === 'poucos instantes') {
+      return moment(now).toDate();
+  }
   if (dateExec2) {
     let number = parseInt(dateExec2.split(' ')[0], 0);
     let duration = dateExec2.split(' ')[1].toLowerCase();
 
-    if (!number || !duration) throw new ErrorException('Invalid txt' + txt);
+    if (!number || !duration) throw new ErrorException('Invalid txt ' + txt);
 
     // chain
     if (duration === 'horas' || duration === 'hora') {

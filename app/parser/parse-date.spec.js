@@ -1,12 +1,7 @@
-import {
-  assert
-} from 'chai';
 import moment from 'moment-timezone';
 
-import {
-  dateRSS,
-  dateHTML
-} from './parse-date';
+import { assert } from 'chai';
+import { dateRSS, dateHTML } from './parse-date';
 
 describe('dateRSS', () => {
   it('parse string to date -0300', () => {

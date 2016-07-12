@@ -169,6 +169,9 @@ function html() {
     if (!ahref) {
       return;
     }
+    if (ahref.indexOf('eptv') >= 0) {
+      return;
+    }
     return decodeURIComponent(ahref[0]);
   }
 }

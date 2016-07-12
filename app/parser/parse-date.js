@@ -11,9 +11,9 @@ function dateHTML(txt, now) {
 
   // executor 1 and 2
   if (!now) {
-    if (txt.indexOf('às') >= 1) {
+    if (txt.indexOf('às') >= 0) {
       txt = txt.replace('às', '');
-    } else if (txt.indexOf('h') >= 1) {
+    } else if (txt.indexOf('h') >= 0) {
       txt = txt.replace('h', ':');
     } else {
       return moment(txt).toDate();

@@ -15,7 +15,7 @@ function globo() {
 
   // 10 segundos
   // */10 * * * * *
-  schedule.scheduleJob('*/10 * * * * *', function() {
+  schedule.scheduleJob('*/10 * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();
   });

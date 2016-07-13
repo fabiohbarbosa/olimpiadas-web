@@ -18,7 +18,7 @@ module.exports = () => {
     }
     singleConnection = false;
     log.error('Error connecting to: ' + mongoUrl + '. ' + err);
-    process.exit();
+    process.exit(1);
   });
 
   // drop database
@@ -29,6 +29,5 @@ module.exports = () => {
       });
     });
   }
-
   return mongoose;
 };

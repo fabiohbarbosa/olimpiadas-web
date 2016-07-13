@@ -54,7 +54,7 @@ function nodeEnv() {
 }
 
 function mongoUrl() {
-  return process.env.MONGO_URL || properties.mongo[nodeEnv()].url;
+  return process.env.MONGO_URL || properties[nodeEnv()].mongo.url;
 }
 
 function objectToJson(msg) {

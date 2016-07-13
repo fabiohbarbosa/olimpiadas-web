@@ -9,10 +9,11 @@
     "start": "npm run clear && cp ./app/properties.yaml ./build && npm run build && node ./build/server.js",
     "start-dev": " npm run docker && ./node_modules/.bin/nodemon --ignore 'app/**/**spec.js' -e js,yaml --exec babel-node app/server.js",
     "build": "./node_modules/.bin/babel -d ./build/ ./app/ --ignore '**/*.spec.js'",
+    "build-test": "./node_modules/.bin/babel -d ./build/ ./app/",
     "lint": "./node_modules/.bin/eslint ./app/ --quiet",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register app/**/**spec.js",
     "logs-prod": "heroku logs -t --app olimpiadas-web",
-    "validate": "npm run lint && npm outdated --depth 0 && npm run test"
+    "validate": "npm outdated --depth 0 && npm run test"
   },
   "repository": {
     "type": "git",

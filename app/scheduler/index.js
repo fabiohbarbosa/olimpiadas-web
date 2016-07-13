@@ -1,9 +1,13 @@
-import {log} from '../utils/';
-
 import schedule from 'node-schedule';
+
 import {globoAdapter} from '../adapters';
+import {nodeEnv, properties, log} from '../utils';
 
 exports.start = () => {
+  if (!properties[nodeEnv].scheduler) {
+    log.debug('Scheduling disabled');
+    return;
+  }
   log.debug('Scheduling start');
   globo();
 };

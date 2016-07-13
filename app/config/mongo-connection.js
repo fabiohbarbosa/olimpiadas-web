@@ -1,10 +1,5 @@
 import mongoose from 'mongoose';
-import {
-  log,
-  properties,
-  nodeEnv,
-  mongoUrl
-} from '../utils';
+import {log, properties, nodeEnv, mongoUrl} from '../utils';
 
 let singleConnection = false;
 
@@ -27,7 +22,7 @@ module.exports = () => {
   });
 
   // drop database
-  if (properties.mongo[nodeEnv].drop) {
+  if (properties[nodeEnv].mongo.drop) {
     mongoose.connection.on('open', () => {
       con.connection.db.dropDatabase(() => {
         log.info('Database dropped');

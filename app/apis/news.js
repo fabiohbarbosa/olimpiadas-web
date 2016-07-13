@@ -34,7 +34,7 @@ function pageable(req, res, next) {
   if (!req.query.date) {
     // TODO pegar data
   }
-  let limit = parseInt(req.query.limit);
+  let limit = parseInt(req.query.limit, 0);
 
   let q = News.find({ pubDate: { $lte: new Date() }}).sort({ pubDate: -1 }).limit(limit);
   q.exec((err, data) => {

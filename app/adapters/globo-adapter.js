@@ -92,9 +92,9 @@ function html() {
 
   function parseHtml(url) {
     log.debug('Parsing ' + url);
-    let parse = new ParseHTML(url);
+    let parse = new ParseHTML();
 
-    parse.start(($) => {
+    parse.start(url, ($) => {
       if (!$) return;
 
       $('.resultado_da_busca').contents().each((index, element) => {
@@ -131,7 +131,13 @@ function html() {
           log.error(err);
           return;
         }
+
         if (!pubDate) return;
+
+        // random milliseconds
+        if (pubDate.get('milliseconds') === 0) {
+          pubDate.add(Math.floor(Math.random() * 1000), 'milliseconds');
+        }
 
         //link
         let link = materiaPadrao.children().last()

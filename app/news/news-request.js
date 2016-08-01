@@ -42,7 +42,10 @@ module.exports = class NewsRequest {
     return this.type === 'NEXT';
   }
 
-  static hateoas(serverUrl, firstDate, lastDate, callback) {
+  static hateoas(serverUrl, dt, callback) {
+    let firstDate = dt.firstDate;
+    let lastDate = dt.lastDate;
+
     let previousDate = moment(lastDate).subtract(1, 'milliseconds').format(DATE_FORMAT);
     let previousUrl = serverUrl + previousDate + '&type=PREVIOUS'
 

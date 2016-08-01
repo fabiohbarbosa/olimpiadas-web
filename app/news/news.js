@@ -12,6 +12,7 @@ let NewsSchema = new Schema({
   },
   img: String,
   type: String,
+  fixed: Boolean,
   pubDate: {
     type: Date,
     index: { unique: true }

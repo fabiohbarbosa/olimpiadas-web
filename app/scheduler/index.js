@@ -1,8 +1,8 @@
 import schedule from 'node-schedule';
 
-import {globoAdapter} from '../adapters';
-import {nodeEnv, properties, log} from '../utils';
-
+import { fixDate, fixDuplicationDate } from '../support';
+import { globoAdapter } from '../adapters';
+import { nodeEnv, properties, log } from '../utils';
 
 exports.start = () => {
   if (!properties[nodeEnv].scheduler) {
@@ -11,6 +11,7 @@ exports.start = () => {
   }
   log.debug('Scheduling start');
   globo();
+  // support();
 };
 
 function globo() {
@@ -20,8 +21,16 @@ function globo() {
 
   // 10 segundos
   // */10 * * * * *
-  schedule.scheduleJob('*/1 * * * *', function() {
+  schedule.scheduleJob('*/10 * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();
+  });
+}
+
+function support() { // eslint-disable-line no-unsed-vars
+  log.debug('Scheduling support');
+  schedule.scheduleJob('*/5 * * * * *', function() {
+    fixDuplicationDate();
+    // fixDate();
   });
 }

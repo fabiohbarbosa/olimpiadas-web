@@ -1,30 +1,32 @@
 import http from 'http';
 import cheerio from 'cheerio';
+import HttpStatus from 'http-status-codes';
 
-import ErrorException from '../exceptions/error-exception';
+import { log } from '../utils';
 
-let url;
-
-module.exports = (_url) => {
-  url = _url;
-  if (!url) {
-    throw ErrorException('Undefined URL');
-  }
-
+module.exports = () => {
   return {
     start: start
   };
 };
 
-function start(callback) {
+function start(url, callback) {
   http.get(url, (res) => {
+    if (res.statusCode === HttpStatus.MOVED_PERMANENTLY) {
+      let redirectUrl = res.headers.location;
+      log.debug('Redirect to ' + redirectUrl + ' from ' + url);
+      start(redirectUrl, callback)
+      return;
+    }
+
     let data = "";
     res.on('data', (chunk) => {
       data += chunk;
     });
 
     res.on("end", () => {
-      callback(cheerio.load(data));
+      let htmlData = cheerio.load(data);
+      callback(htmlData);
     });
   }).on("error", () => {
     callback(null);

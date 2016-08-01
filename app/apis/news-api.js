@@ -61,7 +61,12 @@ function pageable(req, res) {
 
       let serverUrl = req.protocol + '://' + req.get('host') + '/api/news/pageable?limit=' + newsReq.limit + '&pubDate=';
 
-      NewsRequest.hateoas(serverUrl, firstDate, lastDate, (previousUrl, nextUrl) => {
+      let dt = {
+        firstDate: firstDate,
+        lastDate: lastDate
+      };
+
+      NewsRequest.hateoas(serverUrl, dt, (previousUrl, nextUrl) => {
         let news = {
           'previous': previousUrl,
           'next': nextUrl,
@@ -76,11 +81,11 @@ function pageable(req, res) {
   }
 
   function catchException(err) {
-    if (typeof err !== 'ErrorException') {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "INTERNAL SERVER ERROR: '" + err.message + "'"});
+    if (err instanceof ErrorException) {
+      err.printStacktrace();
+      res.status(err.status).json({ message: err.message });
       return;
     }
-    err.printStacktrace();
-    res.status(e.status).json({ message: err.message });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "INTERNAL SERVER ERROR: '" + err.message + "'"});
   }
 }

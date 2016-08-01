@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import cheerio from 'cheerio';
 
 import { ParseRSS, ParseHTML, dateHTML } from '../parser';
@@ -134,10 +135,12 @@ function html() {
 
         if (!pubDate) return;
 
+        let momentPubDate = moment(pubDate);
         // random milliseconds
-        if (pubDate.get('milliseconds') === 0) {
-          pubDate.add(Math.floor(Math.random() * 1000), 'milliseconds');
+        if (momentPubDate.get('milliseconds') === 0) {
+          momentPubDate.add(Math.floor(Math.random() * 1000), 'milliseconds');
         }
+        pubDate = momentPubDate.toDate();
 
         //link
         let link = materiaPadrao.children().last()

@@ -15,11 +15,12 @@ describe('GET /api/news', () => {
         });
     });
 
-    it('respond 400 for correct limit but empty date', (done) => {
+    it('respond 200 for correct limit but empty date', (done) => {
       request(app)
         .get('/api/news/pageable?limit=10')
+        .expect(HttpStatus.NO_CONTENT)
         .end((err, res) => {
-          if (err) console.log(err);
+          if (err) throw err;
           done();
         });
     });

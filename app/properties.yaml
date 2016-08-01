@@ -11,7 +11,7 @@ globo:
   htmlPages: 15
 
 local:
-  scheduler: true
+  scheduler: false
   mongo:
     url: mongodb://localhost/olimpiadas
     drop: false

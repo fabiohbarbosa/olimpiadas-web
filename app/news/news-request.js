@@ -9,7 +9,11 @@ const DATE_FORMAT = 'YYYY-MM-DD,HH:mm:ss.SSS,ZZ';
 module.exports = class NewsRequest {
   constructor(limit, pubDate, type) {
     this.limit = parseInt(limit, 0);
-    if (pubDate) this.pubDate = moment(pubDate, DATE_FORMAT, true);
+    if (pubDate) {
+      this.pubDate = moment(pubDate, DATE_FORMAT, true);
+    } else {
+      this.pubDate = moment();
+    }
     type = type || 'PREVIOUS';
     this.type = type.toUpperCase();
   }

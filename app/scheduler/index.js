@@ -3,6 +3,7 @@ import schedule from 'node-schedule';
 import {globoAdapter} from '../adapters';
 import {nodeEnv, properties, log} from '../utils';
 
+
 exports.start = () => {
   if (!properties[nodeEnv].scheduler) {
     log.debug('Scheduling disabled');
@@ -19,7 +20,7 @@ function globo() {
 
   // 10 segundos
   // */10 * * * * *
-  schedule.scheduleJob('*/10 * * * *', function() {
+  schedule.scheduleJob('*/1 * * * *', function() {
     globoAdapter.rss();
     globoAdapter.html();
   });

@@ -37,12 +37,7 @@ function fixLink() {
 
 function fixDate() {
   let query = {
-    $or: [{
-      fixed: {
-        $exists: false
-      },
-      fixed: null // eslint-disable-line no-dupe-keys
-    }]
+    fixed: false
   };
 
   News.find(query).limit(10).exec((err, news) => {

@@ -49,14 +49,6 @@ function traceCaller(n) {
   return '[' + s + ']';
 }
 
-function nodeEnv() {
-  return process.env.NODE_ENV || 'local';
-}
-
-function mongoUrl() {
-  return process.env.MONGO_URL || properties[nodeEnv()].mongo.url;
-}
-
 function objectToJson(msg) {
   if (!(msg instanceof Object)) {
     return msg;
@@ -68,7 +60,15 @@ function objectToJson(msg) {
   }
 }
 
+function nodeEnv() {
+  return process.env.NODE_ENV || 'local';
+}
+
+function mongoUrl() {
+  return process.env.MONGO_URL || properties[nodeEnv()].mongo.url;
+}
+
 exports.properties = properties;
-exports.log = logger();
+  exports.log = logger();
 exports.mongoUrl = mongoUrl();
 exports.nodeEnv = nodeEnv();

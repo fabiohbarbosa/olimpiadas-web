@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 
 import { ParseRSS, ParseHTML, dateHTML } from '../parser';
 import { log, properties } from '../utils';
-import News from '../news/model';
+import { News } from '../news';
 
 function saveNews(news, type) {
   if (!news) return;

@@ -1,0 +1,12 @@
+{
+  "ecmaVersion": 6,
+  "plugins": {
+    "complete_strings": {},
+    "node": {},
+    "lint": {},
+    "es_modules": {},
+    "doc_comment": {
+      "fullDocs": true
+    }
+  }
+}

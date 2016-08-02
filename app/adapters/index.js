@@ -1,3 +1,3 @@
-import globoAdapter from './globo-adapter';
+import globoAdapter from './globo/globo-adapter';
 
 exports.globoAdapter = globoAdapter;

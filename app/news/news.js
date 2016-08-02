@@ -3,9 +3,23 @@ import Mongoose from '../config/mongo-connection';
 let mongoose = new Mongoose();
 let Schema = mongoose.Schema;
 
+let Image = {
+  _id: false,
+  caption: String,
+  src: String
+}
+
+let Content = {
+  _id: false,
+  text: String,
+  image: Image,
+  order: { type: Number, required: true }
+}
+
 let NewsSchema = new Schema({
   title: String,
   body: String,
+  contents: [Content],
   link: {
     type: String,
     index: { unique: true }
@@ -22,12 +36,12 @@ let NewsSchema = new Schema({
     index: { required: true },
     default: new Date()
   }
-});
+}, { strict: true });
 
 NewsSchema.pre('save', function(callback) {
   try {
-    this.title = this.title.replace(/\r?\n|\r/g, "").trim();
-    this.body = this.body.replace(/\r?\n|\r/g, "").trim();
+    if (this.title) this.title = this.title.replace(/\r?\n|\r/g, "").trim();
+    if (this.body) this.body = this.body.replace(/\r?\n|\r/g, "").trim();
     return callback();
   } catch (err) {
     return callback(err);

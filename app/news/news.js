@@ -21,7 +21,8 @@ let NewsSchema = new Schema({
     type: Date,
     index: { required: true },
     default: new Date()
-  }
+  },
+  credit: { type: String, required: true }
 });
 
 NewsSchema.pre('save', function(callback) {

@@ -9,6 +9,8 @@ import { News } from '../news';
 function saveNews(news, type) {
   if (!news) return;
 
+  news.credit = properties.globo.credit
+
   news.save((err) => {
     if (err && err.code === 11000) {
       log.debug('News ' + news.link + ' already exists');

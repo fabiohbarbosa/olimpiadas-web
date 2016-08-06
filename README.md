@@ -17,15 +17,6 @@ git clone git@github.com:fabiohbarbosa/olimpiadas-web.git
 npm install
 ```
 
-## Link to Heroku
-```sh
-# Git
-git remote add heroku git@heroku.com:olimpiadas-web.git
-
-# Heroku app
-heroku git:remote -a olimpiadas-web
-```
-
 ## Run in dev
 ```sh
 npm run start-dev
@@ -43,7 +34,19 @@ npm run validate
 heroku logs -t --app olimpiadas-web
 ```
 
-### Config
+## Heroku
 ```sh
+# Git
+git remote add heroku git@heroku.com:olimpiadas-web.git
+
+# Heroku app
+heroku git:remote -a olimpiadas-web
+
+# Config
 heroku:config
+```
+
+## Mongo
+```sh
+docker exec -it mongo-olimpiadas-web mongo mongo.host:mongo.port/mongo.database -u mongo.username -p mongo.password
 ```

@@ -6,6 +6,7 @@
 * Node.js 6.2.2 or higher
 * Docker
 * Docker Compose
+* Heroku Toolbelt
 
 ## Install
 ```sh
@@ -14,6 +15,15 @@ git clone git@github.com:fabiohbarbosa/olimpiadas-web.git
 
 # install dependencies
 npm install
+```
+
+## Link to Heroku
+```sh
+# Git
+git remote add heroku git@heroku.com:olimpiadas-web.git
+
+# Heroku app
+heroku git:remote -a olimpiadas-web
 ```
 
 ## Run in dev

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import cheerio from 'cheerio';
 
-import { saveNews, adapterContents } from './globo-adapter-commons';
-import { ParseRSS, ParseHTML } from '../../parser';
+import { adapterContents } from './globo-adapter-commons';
+import { ParseRSS } from '../../parser';
 import { log, properties } from '../../utils';
 import { News } from '../../news';
 
@@ -29,26 +29,16 @@ function rss() {
       let img = adapterImg(post.description);
       if (!img) return;
 
-      adapterContents(link).then((data) => {
-        let news = new News();
-        news.link = link;
-        news.title = title;
-        news.body = body;
-        news.pubDate = pubDate;
-        news.img = img;
-        news.type = 'RSS';
-        news.contents = data;
+      let news = new News();
+      news.link = link;
+      news.title = title;
+      news.body = body;
+      news.pubDate = pubDate;
+      news.img = img;
+      news.type = 'RSS';
 
-        saveNews(news);
-      }).error((err) => {
-        log.error(err);
-        log.error('Error to parse contents of ' + link);
-      }).catch((err) => {
-        log.error(err);
-        log.error('Error to parse contents of ' + link);
-      });
+      adapterContents(news);
     });
-
   });
 }
 

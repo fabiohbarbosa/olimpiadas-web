@@ -1,9 +1,5 @@
-import _ from 'lodash';
-import Promise from 'bluebird';
-
 import { log, properties } from '../../utils';
 import { ParseHTML } from '../../parser';
-import { News } from '../../news';
 
 function saveNews(news) {
   if (!news) return;
@@ -28,19 +24,20 @@ function saveNews(news) {
 
 const DEFAULT_PAGE = '.corpo-conteudo';
 
-function adapterContents(link) {
-  return new Promise((resolve, reject) => {
-    let parse = new ParseHTML();
-    let contents;
-    parse.start(link, ($) => {
-      if (!$) return;
+function adapterContents(news) {
+  let parse = new ParseHTML();
+  let link = news.link;
+  parse.start(link, ($) => {
+    if (!$) return;
 
-      // executor 1
-      if ($(DEFAULT_PAGE).length) {
-        log.debug('Found default page to '+link);
-        resolve(contentsDefaultPage($));
-      }
-    });
+    // executor 1
+    if ($(DEFAULT_PAGE).length) {
+      log.debug('Found default page to ' + link);
+      news.contents = contentsDefaultPage($);
+      saveNews(news);
+      return;
+    }
+    log.error('Error to parse contents of ' + link);
   });
 }
 
@@ -49,8 +46,11 @@ function contentsDefaultPage($) {
   let count = 0;
 
   // subtitle
-  let subtitle = $('h2[itemprop="description"]').text()
-  contents.push({ subtitle: subtitle, order: count++ });
+  let subtitle = $('h2[itemprop="description"]').text();
+  contents.push({
+    subtitle: subtitle,
+    order: count++
+  });
 
   $(DEFAULT_PAGE).contents().each((index, element) => {
     let content = {};

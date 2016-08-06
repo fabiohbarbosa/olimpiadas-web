@@ -9,7 +9,7 @@ globo:
   rss: http://globoesporte.globo.com/servico/semantica/editorias/plantao/feed.rss
   html: http://globoesporte.globo.com/busca/?q=olimpiadas&st=globoesporte
   credit: globoesporte.com
-  htmlPages: 2
+  htmlPages: 15
 
 local:
   scheduler:

@@ -53,6 +53,7 @@ function contentsDefaultPage($) {
   });
 
   $(DEFAULT_PAGE).contents().each((index, element) => {
+    log.error('Parse element ' + element.name);
     let content = {};
 
     // text

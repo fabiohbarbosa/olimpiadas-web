@@ -4,33 +4,20 @@ import { fixDate, fixDuplicationDate } from '../support';
 import { globoAdapter } from '../adapters';
 import { nodeEnv, properties, log } from '../utils';
 
+let scheduler = properties[nodeEnv].scheduler;
 exports.start = () => {
-  if (!properties[nodeEnv].scheduler) {
+  if (!scheduler.enabled) {
     log.debug('Scheduling disabled');
     return;
   }
   log.debug('Scheduling start');
   globo();
-  // support();
 };
 
 function globo() {
   log.debug('Scheduling globo adapter');
-  // 10 minutos
-  // */10 * * * *
-
-  // 10 segundos
-  // */10 * * * * *
-  schedule.scheduleJob('*/10 * * * * *', function() {
+  schedule.scheduleJob(scheduler.cron, () => {
     globoAdapter.rss();
-    // globoAdapter.html();
-  });
-}
-
-function support() { // eslint-disable-line no-unsed-vars
-  log.debug('Scheduling support');
-  schedule.scheduleJob('*/5 * * * * *', function() {
-    fixDuplicationDate();
-    // fixDate();
+    globoAdapter.html();
   });
 }

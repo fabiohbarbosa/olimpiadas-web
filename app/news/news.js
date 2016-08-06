@@ -11,6 +11,7 @@ let Image = {
 
 let Content = {
   _id: false,
+  subtitle: String,
   text: String,
   image: Image,
   order: { type: Number, required: true }
@@ -35,8 +36,9 @@ let NewsSchema = new Schema({
     type: Date,
     index: { required: true },
     default: new Date()
-  }
-}, { strict: true });
+  },
+  credit: { type: String, required: true }
+}, { strict: true } );
 
 NewsSchema.pre('save', function(callback) {
   try {

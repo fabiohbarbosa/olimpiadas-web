@@ -1,7 +1,7 @@
 import moment from 'moment';
 import cheerio from 'cheerio';
 
-import { saveNews } from './globo-adapter-commons';
+import { saveNews, adapterContents } from './globo-adapter-commons';
 import { ParseHTML, dateHTML } from '../../parser';
 import { log, properties } from '../../utils';
 import { News } from '../../news';
@@ -77,15 +77,24 @@ function parseHtml(url) {
         .children('.busca-link-url').children().attr('src');
       if (!img) return;
 
-      let news = new News();
-      news.link = link;
-      news.title = title;
-      news.body = body;
-      news.pubDate = pubDate;
-      news.img = img;
-      news.type = 'HTML';
+      adapterContents(link).then((data) => {
+        let news = new News();
+        news.link = link;
+        news.title = title;
+        news.body = body;
+        news.pubDate = pubDate;
+        news.img = img;
+        news.type = 'HTML';
+        news.contents = data;
 
-      saveNews(news);
+        saveNews(news);
+      }).error((err) => {
+        log.error(err);
+        log.error('Error to parse contents of ' + link);
+      }).catch((err) => {
+        log.error(err);
+        log.error('Error to parse contents of ' + link);
+      });
     });
   });
 }

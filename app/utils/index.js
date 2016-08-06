@@ -65,10 +65,10 @@ function nodeEnv() {
 }
 
 function mongoUrl() {
-  return process.env.MONGO_URL || properties[nodeEnv()].mongo.url;
+  return process.env.MONGODB_URI || properties[nodeEnv()].mongo.url;
 }
 
 exports.properties = properties;
-  exports.log = logger();
+exports.log = logger();
 exports.mongoUrl = mongoUrl();
 exports.nodeEnv = nodeEnv();

@@ -6,7 +6,7 @@ let singleConnection = false;
 module.exports = () => {
   if (singleConnection) {
     log.debug('Mongo already connect');
-    return;
+    return mongoose;
   }
 
   singleConnection = true;

@@ -1,5 +1,6 @@
 import { log, properties } from '../../utils';
 import { ParseHTML } from '../../parser';
+import { Logging } from '../../logging';
 
 function saveNews(news) {
   if (!news) return;
@@ -23,21 +24,47 @@ function saveNews(news) {
 }
 
 const DEFAULT_PAGE = '.corpo-conteudo';
+const GLOBO_PLAY = '.player-mount';
 
 function adapterContents(news) {
   let parse = new ParseHTML();
   let link = news.link;
+  let contents;
+
   parse.start(link, ($) => {
     if (!$) return;
 
     // executor 1
     if ($(DEFAULT_PAGE).length) {
       log.debug('Found default page to ' + link);
-      news.contents = contentsDefaultPage($);
-      saveNews(news);
-      return;
+      contents = contentsDefaultPage($);
+      if (!contents) saveLogging(link);
+    } else if ($(GLOBO_PLAY).length) {
+      log.debug('Found globo play page to ' + link);
+      // contents = contentsGloboPlay($);
+      if (!contents) saveLogging(link);
+    } else {
+      saveLogging(link);
     }
-    log.error('Error to parse contents of ' + link);
+    return;
+    news.contents = contents
+    saveNews(news);
+  });
+}
+
+import phantom from 'phantom';
+function contentsGloboPlay($) {
+
+  phantom.create().then(function(ph) {
+    ph.createPage().then(function(page) {
+      page.open('http://globoplay.globo.com/v/5214312/').then(function(status) {
+        page.property('content').then(function(content) {
+          console.log(content);
+          page.close();
+          ph.exit();
+        });
+      });
+    });
   });
 }
 
@@ -90,6 +117,13 @@ function contentsDefaultPage($) {
   return contents;
 }
 
+function saveLogging(link) {
+  log.error('Error to parse contents of ' + link);
+  new Logging({
+    link: link,
+    msg: 'Error to parse contents'
+  }).save();
+}
 
 exports.saveNews = saveNews;
 exports.adapterContents = adapterContents;

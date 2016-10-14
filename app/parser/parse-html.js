@@ -25,6 +25,9 @@ function start(url, callback) {
     });
 
     res.on("end", () => {
+      console.log('########################################')
+      console.log(data)
+      console.log('########################################')
       let htmlData = cheerio.load(data);
       callback(htmlData);
     });
